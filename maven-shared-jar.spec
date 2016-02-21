@@ -4,7 +4,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        1.1
-Release:        7.9%{?dist}
+Release:        7.10%{?dist}
 # Maven-shared defines maven-shared-jar version as 1.1
 Epoch:          1
 Summary:        Maven JAR Utilities
@@ -15,14 +15,14 @@ Source0:        http://repo1.maven.org/maven2/org/apache/maven/shared/%{pkg_name
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix_java_common}maven-local
-BuildRequires:  maven30-mvn(org.codehaus.plexus:plexus-component-metadata)
+BuildRequires:  %{?scl_prefix}mvn(org.codehaus.plexus:plexus-component-metadata)
 BuildRequires:  %{?scl_prefix_java_common}mvn(org.apache.bcel:bcel)
-BuildRequires:  maven30-mvn(org.apache.maven:maven-model)
-BuildRequires:  maven30-mvn(org.apache.maven.shared:maven-shared-components:pom:)
+BuildRequires:  %{?scl_prefix}mvn(org.apache.maven:maven-model)
+BuildRequires:  %{?scl_prefix}mvn(org.apache.maven.shared:maven-shared-components:pom:)
 BuildRequires:  %{?scl_prefix_java_common}mvn(commons-collections:commons-collections)
-BuildRequires:  maven30-mvn(org.codehaus.plexus:plexus-container-default)
-BuildRequires:  maven30-mvn(org.apache.maven:maven-artifact)
-BuildRequires:  maven30-mvn(org.codehaus.plexus:plexus-digest)
+BuildRequires:  %{?scl_prefix}mvn(org.codehaus.plexus:plexus-container-default)
+BuildRequires:  %{?scl_prefix}mvn(org.apache.maven:maven-artifact)
+BuildRequires:  %{?scl_prefix}mvn(org.codehaus.plexus:plexus-digest)
 
 
 %description
@@ -40,7 +40,7 @@ API documentation for %{pkg_name}.
 
 %prep
 %setup -q -n %{pkg_name}-%{version}
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 
 %pom_add_dep org.codehaus.plexus:plexus-container-default
@@ -57,14 +57,14 @@ find -name 'pom.xml' -exec sed \
 %{?scl:EOF}
 
 %build
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 # Tests require the jars that were removed
 %mvn_build -f
 %{?scl:EOF}
 
 %install
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 %mvn_install
 %{?scl:EOF}
@@ -77,6 +77,9 @@ set -e -x
 
 
 %changelog
+* Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 1:1.1-7.10
+- maven33 rebuild #2
+
 * Sat Jan 09 2016 Michal Srb <msrb@redhat.com> - 1:1.1-7.9
 - maven33 rebuild
 
