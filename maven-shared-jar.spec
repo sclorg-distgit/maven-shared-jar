@@ -4,7 +4,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        1.1
-Release:        7.10%{?dist}
+Release:        7.11%{?dist}
 # Maven-shared defines maven-shared-jar version as 1.1
 Epoch:          1
 Summary:        Maven JAR Utilities
@@ -14,7 +14,7 @@ Source0:        http://repo1.maven.org/maven2/org/apache/maven/shared/%{pkg_name
 
 BuildArch:      noarch
 
-BuildRequires:  %{?scl_prefix_java_common}maven-local
+BuildRequires:  %{?scl_prefix}maven-local
 BuildRequires:  %{?scl_prefix}mvn(org.codehaus.plexus:plexus-component-metadata)
 BuildRequires:  %{?scl_prefix_java_common}mvn(org.apache.bcel:bcel)
 BuildRequires:  %{?scl_prefix}mvn(org.apache.maven:maven-model)
@@ -77,6 +77,9 @@ set -e -x
 
 
 %changelog
+* Mon Feb 08 2016 Michal Srb <msrb@redhat.com> - 1:1.1-7.11
+- Fix BR on maven-local & co.
+
 * Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 1:1.1-7.10
 - maven33 rebuild #2
 
